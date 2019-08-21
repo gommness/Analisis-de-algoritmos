@@ -1,0 +1,1 @@
+tam perm	t_ejec (s)	promedioOB	maximoOB	minimoOB
