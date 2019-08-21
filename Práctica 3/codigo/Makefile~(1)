@@ -1,0 +1,36 @@
+#-----------------------
+# IMPORTANTE: Los valores de los parametros de los ejercicio?_test deben ajustarse.
+# Se asume que los ficheros fuente se llaman ejercicio1.c, ejercicio2.c,...,ordenar.h
+#-----------------------
+
+CC = gcc -ansi -pedantic
+CFLAGS = -Wall
+EXE = ejercicio1 ejercicio2
+LIBS = -lm -lrt
+all : $(EXE)
+
+.PHONY : clean
+clean :
+	rm -f *.o core $(EXE)
+
+$(EXE) : % : %.o ordenar.o tiempos.o busqueda.o
+	@echo "#---------------------------"
+	@echo "# Generando $@ "
+	@echo "# Depende de $^"
+	@echo "# Ha cambiado $<"
+	$(CC) $(CFLAGS) -o $@ $@.o ordenar.o tiempos.o busqueda.o $(LIBS)
+
+%.o : %.c ordenar.h tiempos.h busqueda.h
+	@echo "#---------------------------"
+	@echo "# Generando $@"
+	@echo "# Depende de $^"
+	@echo "# Ha cambiado $<"
+	$(CC) $(CFLAGS) -c $< # $(LIBS)
+
+ejercicio1_test:
+	@echo Ejecutando ejercicio1
+	@./ejercicio1 -limInf 1 -limSup 5 -numN 10
+
+ejercicio2_test:
+	@echo Ejecutando ejercicio2
+	@./ejercicio2 -tamanio 1 -numP 5
